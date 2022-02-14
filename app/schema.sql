@@ -1,10 +1,13 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS list;
+DROP TABLE IF EXISTS item;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  lists TEXT
 );
 
 CREATE TABLE post (
@@ -14,4 +17,20 @@ CREATE TABLE post (
   title TEXT NOT NULL,
   body TEXT NOT NULL,
   FOREIGN KEY (author_id) REFERENCES user (id)
+);
+
+CREATE TABLE list (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  owner_id INTEGER NOT NULL,
+  title TEXT NOT NULL,
+  users TEXT NOT NULL
+);
+
+CREATE TABLE item (
+  id INTEGER PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  list_id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  quantity INTEGER NOT NULL,
+  notes TEXT
 );
